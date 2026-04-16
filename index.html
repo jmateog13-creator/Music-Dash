@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
 <meta charset="UTF-8">
 <title>Music Dash</title>
@@ -130,8 +130,8 @@
     font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
     margin-bottom: 18px;
   }
-  .diff-Fácil { background: #10b981; }
-  .diff-Media { background: #f59e0b; }
+  .diff-Fàcil { background: #10b981; }
+  .diff-Mitjana { background: #f59e0b; }
   .diff-Difícil { background: #ef4444; }
   #qText { font-size: 24px; margin: 8px 0 28px; font-weight: 600; line-height: 1.4; }
   #qOpts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -166,18 +166,18 @@
 <div id="homeScreen" class="screen bg-gradient active">
   <h1 class="title">MUSIC DASH</h1>
   <p class="tagline">
-    Salta, esquiva y demuestra tus conocimientos musicales.<br>
-    Cada 100 metros aparece una pregunta. ¿Acertarás las 10 sin morir?
+    Salta, esquiva i demostra els teus coneixements musicals.<br>
+    Cada 100 metres apareix una pregunta. Encertaràs les 10 sense morir?
   </p>
   <button class="btn" onclick="goTo('selectScreen')">▶ Jugar</button>
 </div>
 
-<!-- ================== SELECTOR NIVEL ================== -->
+<!-- ================== SELECTOR NIVELL ================== -->
 <div id="selectScreen" class="screen bg-gradient">
-  <button class="btn secondary back-btn" onclick="goTo('homeScreen')">← Volver</button>
-  <h1 class="title" style="font-size: clamp(36px, 6vw, 60px);">Elige tu nivel</h1>
+  <button class="btn secondary back-btn" onclick="goTo('homeScreen')">← Tornar</button>
+  <h1 class="title" style="font-size: clamp(36px, 6vw, 60px);">Tria el teu nivell</h1>
   <div class="levels" id="levelGrid"></div>
-  <button class="btn secondary reset-btn" onclick="resetProgress()">Reiniciar progreso</button>
+  <button class="btn secondary reset-btn" onclick="resetProgress()">Reiniciar progrés</button>
 </div>
 
 <!-- ================== HUD ================== -->
@@ -202,8 +202,8 @@
   <h1 class="end-title" id="endTitle"></h1>
   <p class="end-msg" id="endMsg"></p>
   <div class="end-buttons">
-    <button class="btn" onclick="retryLevel()">🔄 Reintentar</button>
-    <button class="btn secondary" onclick="backToSelect()">Niveles</button>
+    <button class="btn" onclick="retryLevel()">🔄 Tornar-ho a provar</button>
+    <button class="btn secondary" onclick="backToSelect()">Nivells</button>
   </div>
 </div>
 
@@ -215,50 +215,50 @@
 // BANCO DE PREGUNTAS
 // ============================================
 const FACILES = [
-  { q: "¿Cuántos tiempos tiene un compás de 4/4?", opts: ["2", "3", "4", "6"], correct: 2 },
-  { q: "¿Cuántas negras caben en una redonda?", opts: ["2", "4", "8", "16"], correct: 1 },
-  { q: "¿Cuántas corcheas equivalen a una negra?", opts: ["1", "2", "3", "4"], correct: 1 },
-  { q: "¿Qué figura dura más?", opts: ["Negra", "Blanca", "Corchea", "Semicorchea"], correct: 1 },
-  { q: "¿Cuántos tiempos vale una blanca en 4/4?", opts: ["1", "2", "3", "4"], correct: 1 },
-  { q: "¿Cuántas semicorcheas hay en una corchea?", opts: ["1", "2", "3", "4"], correct: 1 },
-  { q: "¿Qué número indica la figura del pulso en 3/4?", opts: ["3", "4", "8", "2"], correct: 1 },
-  { q: "Una redonda equivale a... blancas", opts: ["1", "2", "4", "8"], correct: 1 },
-  { q: "¿Cuántos tiempos tiene un compás de 2/4?", opts: ["1", "2", "3", "4"], correct: 1 },
-  { q: "¿Qué figura dura medio tiempo en 4/4?", opts: ["Negra", "Blanca", "Corchea", "Redonda"], correct: 2 }
+  { q: "Quants temps té un compàs de 4/4?", opts: ["2", "3", "4", "6"], correct: 2 },
+  { q: "Quantes negres caben en una rodona?", opts: ["2", "4", "8", "16"], correct: 1 },
+  { q: "Quantes corxeres equivalen a una negra?", opts: ["1", "2", "3", "4"], correct: 1 },
+  { q: "Quina figura dura més?", opts: ["Negra", "Blanca", "Corxera", "Semicorxera"], correct: 1 },
+  { q: "Quants temps val una blanca en 4/4?", opts: ["1", "2", "3", "4"], correct: 1 },
+  { q: "Quantes semicorxeres hi ha en una corxera?", opts: ["1", "2", "3", "4"], correct: 1 },
+  { q: "Quin número indica la figura del pols en 3/4?", opts: ["3", "4", "8", "2"], correct: 1 },
+  { q: "Una rodona equival a... blanques", opts: ["1", "2", "4", "8"], correct: 1 },
+  { q: "Quants temps té un compàs de 2/4?", opts: ["1", "2", "3", "4"], correct: 1 },
+  { q: "Quina figura dura mig temps en 4/4?", opts: ["Negra", "Blanca", "Corxera", "Rodona"], correct: 2 }
 ];
 const MEDIAS = [
-  { q: "¿Cuál es un compás simple?", opts: ["6/8", "3/4", "9/8", "12/8"], correct: 1 },
-  { q: "¿Cuál es un compás compuesto?", opts: ["2/4", "4/4", "6/8", "3/4"], correct: 2 },
-  { q: "Una negra con puntillo equivale a...", opts: ["2 corcheas", "3 corcheas", "4 corcheas", "1 corchea"], correct: 1 },
-  { q: "¿Cuántas corcheas hay en un compás de 6/8?", opts: ["3", "6", "8", "12"], correct: 1 },
-  { q: "El puntillo añade a la figura...", opts: ["Su mismo valor", "El doble", "La mitad de su valor", "Un cuarto"], correct: 2 },
-  { q: "¿Cuántas semicorcheas caben en una blanca?", opts: ["4", "8", "16", "32"], correct: 1 },
-  { q: "En 3/4, ¿cuántas corcheas caben en un compás?", opts: ["3", "6", "8", "12"], correct: 1 },
-  { q: "Una blanca con puntillo dura... tiempos en 4/4", opts: ["2", "2.5", "3", "4"], correct: 2 },
-  { q: "¿Cuál NO es un compás simple?", opts: ["2/4", "3/4", "4/4", "9/8"], correct: 3 },
-  { q: "En 6/8 el pulso se agrupa de... en...", opts: ["2 en 2", "3 en 3", "4 en 4", "6 en 6"], correct: 1 }
+  { q: "Quin és un compàs simple?", opts: ["6/8", "3/4", "9/8", "12/8"], correct: 1 },
+  { q: "Quin és un compàs compost?", opts: ["2/4", "4/4", "6/8", "3/4"], correct: 2 },
+  { q: "Una negra amb puntet equival a...", opts: ["2 corxeres", "3 corxeres", "4 corxeres", "1 corxera"], correct: 1 },
+  { q: "Quantes corxeres hi ha en un compàs de 6/8?", opts: ["3", "6", "8", "12"], correct: 1 },
+  { q: "El puntet afegeix a la figura...", opts: ["El seu mateix valor", "El doble", "La meitat del seu valor", "Un quart"], correct: 2 },
+  { q: "Quantes semicorxeres caben en una blanca?", opts: ["4", "8", "16", "32"], correct: 1 },
+  { q: "En 3/4, quantes corxeres caben en un compàs?", opts: ["3", "6", "8", "12"], correct: 1 },
+  { q: "Una blanca amb puntet dura... temps en 4/4", opts: ["2", "2.5", "3", "4"], correct: 2 },
+  { q: "Quin NO és un compàs simple?", opts: ["2/4", "3/4", "4/4", "9/8"], correct: 3 },
+  { q: "En 6/8 el pols s'agrupa de... en...", opts: ["2 en 2", "3 en 3", "4 en 4", "6 en 6"], correct: 1 }
 ];
 const DIFICILES = [
-  { q: "En 9/8 (compuesto), ¿cuántos pulsos reales hay?", opts: ["2", "3", "4", "9"], correct: 1 },
-  { q: "Una corchea con puntillo + semicorchea equivale a...", opts: ["1 negra", "1 blanca", "2 negras", "1 corchea"], correct: 0 },
-  { q: "¿Qué compás compuesto equivale a 4/4 simple?", opts: ["6/8", "9/8", "12/8", "3/8"], correct: 2 },
-  { q: "Una redonda con puntillo equivale a... negras", opts: ["4", "5", "6", "8"], correct: 2 },
-  { q: "En 12/8, ¿cuántas corcheas caben?", opts: ["6", "8", "12", "16"], correct: 2 },
-  { q: "¿Cuántas semicorcheas hay en una negra con puntillo?", opts: ["4", "5", "6", "8"], correct: 2 },
-  { q: "El equivalente compuesto de 3/4 es...", opts: ["6/8", "9/8", "12/8", "3/8"], correct: 1 },
-  { q: "Una blanca con doble puntillo dura... tiempos", opts: ["3", "3.25", "3.5", "3.75"], correct: 2 },
-  { q: "En un compás compuesto, cada pulso se subdivide en...", opts: ["2", "3", "4", "6"], correct: 1 },
-  { q: "¿Cuántas fusas hay en una negra?", opts: ["4", "8", "16", "32"], correct: 1 }
+  { q: "En 9/8 (compost), quants polsos reals hi ha?", opts: ["2", "3", "4", "9"], correct: 1 },
+  { q: "Una corxera amb puntet + semicorxera equival a...", opts: ["1 negra", "1 blanca", "2 negres", "1 corxera"], correct: 0 },
+  { q: "Quin compàs compost equival a 4/4 simple?", opts: ["6/8", "9/8", "12/8", "3/8"], correct: 2 },
+  { q: "Una rodona amb puntet equival a... negres", opts: ["4", "5", "6", "8"], correct: 2 },
+  { q: "En 12/8, quantes corxeres caben?", opts: ["6", "8", "12", "16"], correct: 2 },
+  { q: "Quantes semicorxeres hi ha en una negra amb puntet?", opts: ["4", "5", "6", "8"], correct: 2 },
+  { q: "L'equivalent compost de 3/4 és...", opts: ["6/8", "9/8", "12/8", "3/8"], correct: 1 },
+  { q: "Una blanca amb doble puntet dura... temps", opts: ["3", "3.25", "3.5", "3.75"], correct: 2 },
+  { q: "En un compàs compost, cada pols es subdivideix en...", opts: ["2", "3", "4", "6"], correct: 1 },
+  { q: "Quantes fuses hi ha en una negra?", opts: ["4", "8", "16", "32"], correct: 1 }
 ];
 
 // ============================================
-// NIVELES
+// NIVELLS
 // ============================================
 const LEVELS = [
-  { name: "Inicio",    diff: "Fácil",   bgTop: 0x1e3a8a, bgBot: 0x06b6d4, ground: 0x0e7490, accent: 0xfde047, speed: 320, spawnDelay: 1300, blockChance: 0.15 },
-  { name: "Selva",     diff: "Normal",  bgTop: 0x14532d, bgBot: 0xfde047, ground: 0x166534, accent: 0xfde047, speed: 380, spawnDelay: 1100, blockChance: 0.30 },
-  { name: "Cosmos",    diff: "Difícil", bgTop: 0x4c1d95, bgBot: 0xec4899, ground: 0x5b21b6, accent: 0x22d3ee, speed: 440, spawnDelay: 950,  blockChance: 0.45 },
-  { name: "Inframundo",diff: "Extremo", bgTop: 0x000000, bgBot: 0xdc2626, ground: 0x18181b, accent: 0x00ff88, speed: 500, spawnDelay: 800,  blockChance: 0.60 }
+  { name: "Inici",     diff: "Fàcil",        bgTop: 0x1e3a8a, bgBot: 0x06b6d4, ground: 0x0e7490, accent: 0xfde047, speed: 320, spawnDelay: 1300, blockChance: 0.15 },
+  { name: "Jungla",    diff: "Normal",       bgTop: 0x14532d, bgBot: 0xfde047, ground: 0x166534, accent: 0xfde047, speed: 380, spawnDelay: 1100, blockChance: 0.30 },
+  { name: "Cosmos",    diff: "Difícil",      bgTop: 0x4c1d95, bgBot: 0xec4899, ground: 0x5b21b6, accent: 0x22d3ee, speed: 440, spawnDelay: 950,  blockChance: 0.45 },
+  { name: "Inframón",  diff: "Molt difícil", bgTop: 0x000000, bgBot: 0xdc2626, ground: 0x18181b, accent: 0x00ff88, speed: 500, spawnDelay: 800,  blockChance: 0.60 }
 ];
 
 // ============================================
@@ -277,7 +277,7 @@ function unlockNext(idx) {
   saveProgress(p);
 }
 function resetProgress() {
-  if (confirm("¿Borrar todo el progreso guardado?")) {
+  if (confirm("Esborrar tot el progrés desat?")) {
     localStorage.removeItem(SAVE_KEY);
     renderLevels();
   }
@@ -295,8 +295,8 @@ function shuffle(arr) {
   return a;
 }
 function buildQuestionList() {
-  const f = shuffle(FACILES).slice(0, 3).map(q => ({ ...q, diff: "Fácil" }));
-  const m = shuffle(MEDIAS).slice(0, 3).map(q => ({ ...q, diff: "Media" }));
+  const f = shuffle(FACILES).slice(0, 3).map(q => ({ ...q, diff: "Fàcil" }));
+  const m = shuffle(MEDIAS).slice(0, 3).map(q => ({ ...q, diff: "Mitjana" }));
   const d = shuffle(DIFICILES).slice(0, 4).map(q => ({ ...q, diff: "Difícil" }));
   return [...f, ...m, ...d];
 }
@@ -722,10 +722,10 @@ class GameScene extends Phaser.Scene {
     const screen = document.getElementById("endScreen");
     screen.classList.add("active");
     screen.classList.toggle("fail", !won);
-    document.getElementById("endTitle").textContent = won ? "¡COMPLETADO!" : "GAME OVER";
-    let msg = `Distancia: ${Math.floor(this.distance)}m · Aciertos: ${this.qIndex}/10`;
+    document.getElementById("endTitle").textContent = won ? "COMPLETAT!" : "HAS PERDUT";
+    let msg = `Distància: ${Math.floor(this.distance)}m · Encerts: ${this.qIndex}/10`;
     if (won && this.levelIdx + 1 < LEVELS.length) {
-      msg += `\n¡Has desbloqueado el nivel "${LEVELS[this.levelIdx + 1].name}"!`;
+      msg += `\nHas desbloquejat el nivell "${LEVELS[this.levelIdx + 1].name}"!`;
     }
     document.getElementById("endMsg").textContent = msg;
   }
