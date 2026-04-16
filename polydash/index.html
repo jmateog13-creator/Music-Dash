@@ -1,0 +1,27 @@
+<html lang="ca">
+<head>
+    <meta charset="utf-8" />
+    <title>Music Dash 🎵</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet preload prefetch" href="https://fonts.googleapis.com/css?family=Orbitron:700" as="style" type="text/css" crossorigin="anonymous">
+</head>
+
+<body id = "game-interface">
+    <div style="display:none;">
+        <!-- Placeholders vacíos: ya no cargamos las imágenes de Dropbox (usamos degradado).
+             Mantenemos los IDs porque el motor los consulta. -->
+        <img id="city" alt="" width="1" height="1" />
+        <img id="city-reverse" alt="" width="1" height="1"/>
+        <audio id='backGroundMusic' preload="none"></audio>
+        <audio id='deathSound' preload="none"></audio>
+    </div>
+    <div id = "canvas-set">
+        <canvas id="canvas-game"></canvas>    
+        <canvas id="canvas-background"></canvas>    
+    </div>
+    
+    <script src="quiz-inject.js"></script>
+    <script src="impossible-game.js"></script>
+</body>
+
+</html> 

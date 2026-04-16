@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python3 -m http.server 8000)",
+      "Bash(curl -sI http://localhost:8000/)",
+      "Bash(open http://localhost:8000/)",
+      "Bash(open \"http://localhost:8000/?nocache=$\\(date +%s\\)\")"
+    ]
+  }
+}
