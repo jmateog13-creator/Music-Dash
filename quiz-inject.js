@@ -527,8 +527,27 @@
   hud.innerHTML = `
     <div class="pill meters">📏 <span id="md-meters">0</span> m</div>
     <div class="pill qcount">❓ <span id="md-qcount">0</span>/10</div>
+    <div class="pill" id="md-fps-pill" style="font-size:12px;">⚡ <span id="md-fps">60</span> fps</div>
   `;
   document.body.appendChild(hud);
+
+  // ================= FPS COUNTER =================
+  let fpsFrames = 0, fpsLast = performance.now();
+  function tickFps() {
+    fpsFrames++;
+    const now = performance.now();
+    if (now - fpsLast >= 500) {
+      const fps = Math.round((fpsFrames * 1000) / (now - fpsLast));
+      const el = document.getElementById("md-fps");
+      if (el) {
+        el.textContent = fps;
+        el.parentElement.style.color = fps < 30 ? "#ef4444" : (fps < 50 ? "#fbbf24" : "#22c55e");
+      }
+      fpsFrames = 0; fpsLast = now;
+    }
+    requestAnimationFrame(tickFps);
+  }
+  requestAnimationFrame(tickFps);
 
   const quiz = document.createElement("div");
   quiz.id = "md-quiz";

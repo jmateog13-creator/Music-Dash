@@ -1072,24 +1072,37 @@ function positivMod(n, mod) {
     /*  Gather attributes and methods to draw frames of the game */
   
     constructor(heroInstance) {
-      // principal canvas
+      // ===== MUSIC DASH: cap de resolució per rendiment =====
+      // El canvas es dibuixa a una resolució fixa i CSS l'escala a la finestra.
+      // Així l'ordinador dibuixa sempre els mateixos píxels (no importa si pantalla és 4K).
+      const MAX_W = 1280, MAX_H = 720;
+      const viewportW = document.getElementById("game-interface").offsetWidth;
+      const viewportH = document.getElementById("game-interface").offsetHeight;
+      const ratio = Math.min(MAX_W / viewportW, MAX_H / viewportH, 1);
+      this.width = Math.floor(viewportW * ratio);
+      this.height = Math.floor(viewportH * ratio);
+
       let canvas = document.getElementById("canvas-game");
       this.ctx = canvas.getContext("2d");
-      this.width = document.getElementById("game-interface").offsetWidth;
-      this.height = document.getElementById("game-interface").offsetHeight;
       this.ctx.canvas.width = this.width;
       this.ctx.canvas.height = this.height;
-      this.unity = this.width / 40; // unity of the game. for exemple, segment (0,0), (1,0) will have unity length when draw
-      this.heroCenterXPosition = 0; // use to make the grid scroll with the hero on x. update in method setGridPosition
-      this.heroAjustYPosition = 0; // use to make the grid scrill with the hero on y. update in method setGridPosition
+      // CSS upscale per omplir la finestra
+      canvas.style.width = viewportW + "px";
+      canvas.style.height = viewportH + "px";
+
+      this.unity = this.width / 40;
+      this.heroCenterXPosition = 0;
+      this.heroAjustYPosition = 0;
       this.deathAnimationTime = 0.3;
       this.winAnimationTime = 2;
-  
-      // background canvas
+
+      // background canvas (mateixa resolució interna)
       let canvasBack = document.getElementById("canvas-background");
       this.ctxBack = canvasBack.getContext("2d");
       this.ctxBack.canvas.width = this.width;
       this.ctxBack.canvas.height = this.height;
+      canvasBack.style.width = viewportW + "px";
+      canvasBack.style.height = viewportH + "px";
       this.backGroundTimeScroll = 0;
       this.backgroundSpeed = (heroInstance.vx / 6) * this.unity;
   
@@ -1531,10 +1544,10 @@ function positivMod(n, mod) {
       grad.addColorStop(1, lvl.bgBot);
       this.ctxBack.fillStyle = grad;
       this.ctxBack.fillRect(0, 0, w, h);
-      // Estrellas suaves animadas
+      // Estrelles reduïdes (20) per rendiment
       this.backGroundTimeScroll = (this.backGroundTimeScroll || 0) + (frameTimeDiff.dt || 0) * 30;
       this.ctxBack.fillStyle = "rgba(255,255,255,0.6)";
-      for (let i = 0; i < 40; i++) {
+      for (let i = 0; i < 20; i++) {
         const x = ((i * 137 - this.backGroundTimeScroll) % w + w) % w;
         const y = (i * 53) % (h * 0.65);
         const r = (i % 3) + 1;
