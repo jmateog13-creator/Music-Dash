@@ -1469,12 +1469,13 @@ function positivMod(n, mod) {
     }
   
     drawCheckpointCounter() {
-      // ckecpoint counter if place on top left on background canvas
-      this.ctxBack.font = "80px Orbitron";
+      // Checkpoints restants (màxim 5)
+      const remaining = 5 - checkPointCounter;
+      this.ctxBack.font = "22px Orbitron";
       this.ctxBack.shadowColor = "rgba(224,231,34)";
-      this.ctxBack.shadowBlur = 20;
-      this.ctxBack.fillStyle = "rgba(224,231,34,1)";
-      this.ctxBack.fillText(checkPointCounter, 15, 85);
+      this.ctxBack.shadowBlur = 10;
+      this.ctxBack.fillStyle = remaining > 0 ? "rgba(224,231,34,1)" : "rgba(239,68,68,1)";
+      this.ctxBack.fillText("CP: " + remaining + "/5", 15, 35);
       this.ctxBack.shadowBlur = 0;
     }
   
@@ -1763,7 +1764,7 @@ function positivMod(n, mod) {
       if (keys.Space && Date.now() - frameTimeDiff.startBegin > 150) {
         heroInstance.jump();
       }
-      if (keys.KeyS && Date.now() - frameTimeDiff.lastCheckPoint > 200) {
+      if (keys.KeyS && Date.now() - frameTimeDiff.lastCheckPoint > 200 && checkPointCounter < 5) {
         addCheckPoint();
         checkPointCounter++;
         checkPointValue.checkpoint.update(heroInstance);
