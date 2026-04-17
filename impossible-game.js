@@ -2009,13 +2009,16 @@ function positivMod(n, mod) {
   function buildMusicDashLevel(gridInstance, heroInstance, lvlIdx) {
     gridInstance.grid = [];
 
-    // Pujada de dificultat global: tots els nivells comencen més durs
-    // i tenen menys "tramos llanos" de descans.
+    // 8 nivells de dificultat incremental
     const CFG = [
-      { diffStart: 2, diffEnd: 3, flatChance: 0.18 },  // Aurora (Fàcil)
-      { diffStart: 2, diffEnd: 4, flatChance: 0.12 },  // Jungla (Normal)
-      { diffStart: 3, diffEnd: 5, flatChance: 0.06 },  // Cosmos (Difícil)
-      { diffStart: 4, diffEnd: 5, flatChance: 0.03 }   // Inframón (Molt difícil)
+      { diffStart: 1, diffEnd: 2, flatChance: 0.30 },  // 1 Aurora — Fàcil
+      { diffStart: 1, diffEnd: 3, flatChance: 0.22 },  // 2 Bosc — Moderat
+      { diffStart: 2, diffEnd: 3, flatChance: 0.18 },  // 3 Jungla — Normal
+      { diffStart: 2, diffEnd: 4, flatChance: 0.14 },  // 4 Oceà — Normal+
+      { diffStart: 3, diffEnd: 4, flatChance: 0.10 },  // 5 Cosmos — Difícil
+      { diffStart: 3, diffEnd: 5, flatChance: 0.06 },  // 6 Volcà — Molt difícil
+      { diffStart: 4, diffEnd: 5, flatChance: 0.03 },  // 7 Inframón — Infernal
+      { diffStart: 5, diffEnd: 5, flatChance: 0.01 }   // 8 El Buit — Impossible
     ];
     const cfg = CFG[lvlIdx] || CFG[0];
 

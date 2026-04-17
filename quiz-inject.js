@@ -4,6 +4,7 @@
 (function () {
   // ================= NIVELES =================
   const LEVELS = [
+    // 1 — Fàcil
     { name: "Aurora",    diff: "Fàcil",   bgTop: "#1e3a8a", bgBot: "#06b6d4", accent: "#fde047", villain: "🦇", villainColor: "#fde047", taunts: [
       "Ha, ha, saps llegir un pentagrama?",
       "A veure si endevines aquesta, mortal.",
@@ -11,6 +12,15 @@
       "Si falles, cauràs a l'abisme...",
       "Petit músic! Resol o pateix."
     ]},
+    // 2 — Una mica més complicat
+    { name: "Bosc",      diff: "Moderat", bgTop: "#1a472a", bgBot: "#22c55e", accent: "#86efac", villain: "🐺", villainColor: "#86efac", taunts: [
+      "Grrrr... els dèbils no passen del bosc.",
+      "Creus que pots amb mi? Ingenu.",
+      "El bosc és fosc i ple de trampes.",
+      "Respon ràpid o et menjo!",
+      "Auuuuuu! Mala sort, petit músic."
+    ]},
+    // 3 — Normal
     { name: "Jungla",    diff: "Normal",  bgTop: "#14532d", bgBot: "#fde047", accent: "#22c55e", villain: "🐍", villainColor: "#22c55e", taunts: [
       "Sssegueixes viu? Ja ho veurem...",
       "La jungla es menja els ignorants.",
@@ -18,6 +28,15 @@
       "Aixxxò et costarà, nano.",
       "Demostra el teu ritme o seràs berenar!"
     ]},
+    // 4 — Normal plus
+    { name: "Oceà",      diff: "Normal+", bgTop: "#0c4a6e", bgBot: "#0891b2", accent: "#67e8f9", villain: "🦈", villainColor: "#67e8f9", taunts: [
+      "A l'oceà no hi ha segones oportunitats.",
+      "Neda ràpid o et trinxo!",
+      "Les ones no esperen... i jo tampoc.",
+      "Saps música o saps nedar? Cap de les dues!",
+      "El fons marí serà la teva llar."
+    ]},
+    // 5 — Difícil
     { name: "Cosmos",    diff: "Difícil", bgTop: "#4c1d95", bgBot: "#ec4899", accent: "#22d3ee", villain: "👽", villainColor: "#22d3ee", taunts: [
       "El teu cervell humà no pot amb això.",
       "Al meu planeta això ho sap un nadó.",
@@ -25,12 +44,29 @@
       "Figures musicals? Trivials.",
       "Demostra que mereixes passar!"
     ]},
-    { name: "Inframón",  diff: "Molt difícil", bgTop: "#0f0f0f", bgBot: "#dc2626", accent: "#ff00aa", villain: "👹", villainColor: "#ff4466", taunts: [
+    // 6 — Molt difícil
+    { name: "Volcà",     diff: "Molt difícil", bgTop: "#7c2d12", bgBot: "#ea580c", accent: "#fbbf24", villain: "🐉", villainColor: "#fbbf24", taunts: [
+      "La lava crema més que els teus errors.",
+      "Ni un drac aguanta tanta pressió!",
+      "Foc, foc i més foc. Respon o crema!",
+      "Creies que el volcà era el pitjor? Sóc jo.",
+      "Fonent-se... com les teves respostes."
+    ]},
+    // 7 — Molt molt difícil
+    { name: "Inframón",  diff: "Infernal", bgTop: "#0f0f0f", bgBot: "#dc2626", accent: "#ff00aa", villain: "👹", villainColor: "#ff4466", taunts: [
       "Respon o cremaràs!",
       "Ningú n'ha sortit amb vida, d'aquí.",
       "Un error... i ets meu.",
       "MUAJAJAJA! Massa difícil, eh?",
       "Últimes paraules abans de fallar?"
+    ]},
+    // 8 — Quasi impossible
+    { name: "El Buit",   diff: "Impossible", bgTop: "#000000", bgBot: "#18181b", accent: "#a855f7", villain: "💀", villainColor: "#a855f7", taunts: [
+      "Aquí no arriba ningú. Ningú.",
+      "El silenci etern t'espera.",
+      "No existeix la sort en el buit.",
+      "Jo sóc l'última cosa que veuràs.",
+      "Ja ets mort. Encara no ho saps."
     ]}
   ];
   function randomTaunt(level) {
