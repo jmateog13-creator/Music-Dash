@@ -1075,7 +1075,7 @@ function positivMod(n, mod) {
       // ===== MUSIC DASH: cap de resolució per rendiment =====
       // El canvas es dibuixa a una resolució fixa i CSS l'escala a la finestra.
       // Així l'ordinador dibuixa sempre els mateixos píxels (no importa si pantalla és 4K).
-      const MAX_W = 1280, MAX_H = 720;
+      const MAX_W = 1024, MAX_H = 576;
       const viewportW = document.getElementById("game-interface").offsetWidth;
       const viewportH = document.getElementById("game-interface").offsetHeight;
       const ratio = Math.min(MAX_W / viewportW, MAX_H / viewportH, 1);
@@ -1146,18 +1146,12 @@ function positivMod(n, mod) {
     }
   
     drawSquareNeonStyle(elementToDraw, r, g, b) {
-      /* Draw elements in neon style   */
-      this.ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + 0.2 + ")";
-      this.ctx.lineWidth = 13;
+      // Neon simplificat: 2 strokes enlloc de 4 (50% menys ops)
+      const col = r + "," + g + "," + b;
+      this.ctx.strokeStyle = "rgba(" + col + ",0.35)";
+      this.ctx.lineWidth = 10;
       this.ctx.stroke(elementToDraw);
-      this.ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + 0.2 + ")";
-      this.ctx.lineWidth = 9;
-      this.ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + 0.2 + ")";
-      this.ctx.stroke(elementToDraw);
-      this.ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + 0.4 + ")";
-      this.ctx.lineWidth = 7;
-      this.ctx.stroke(elementToDraw);
-      this.ctx.strokeStyle = "rgba(" + r + "," + g + "," + b + "," + 1 + ")";
+      this.ctx.strokeStyle = "rgba(" + col + ",1)";
       this.ctx.lineWidth = 5;
       this.ctx.stroke(elementToDraw);
     }
@@ -1535,14 +1529,21 @@ function positivMod(n, mod) {
     }
   
     drawBackGround() {
-      // ===== MUSIC DASH: degradado en vez de imagen de Dropbox =====
+      // Cache del gradient: només es recalcula si el nivell canvia
       const lvl = (window.MusicDash && window.MusicDash.levels[window.MusicDash.currentLevel]) ||
                   { bgTop: "#1e3a8a", bgBot: "#06b6d4" };
       const w = this.ctxBack.canvas.width, h = this.ctxBack.canvas.height;
-      const grad = this.ctxBack.createLinearGradient(0, 0, 0, h);
-      grad.addColorStop(0, lvl.bgTop);
-      grad.addColorStop(1, lvl.bgBot);
-      this.ctxBack.fillStyle = grad;
+      const gradKey = lvl.bgTop + "|" + lvl.bgBot + "|" + h;
+      if (this._gradKey !== gradKey) {
+        this._gradCached = this.ctxBack.createLinearGradient(0, 0, 0, h);
+        this._gradCached.addColorStop(0, lvl.bgTop);
+        this._gradCached.addColorStop(1, lvl.bgBot);
+        this._gradKey = gradKey;
+      }
+      // Saltar frames alternatius del fons (reduir cost 50%)
+      this._bgSkip = !this._bgSkip;
+      if (this._bgSkip) return;
+      this.ctxBack.fillStyle = this._gradCached;
       this.ctxBack.fillRect(0, 0, w, h);
       // Estrelles reduïdes (20) per rendiment
       this.backGroundTimeScroll = (this.backGroundTimeScroll || 0) + (frameTimeDiff.dt || 0) * 30;
